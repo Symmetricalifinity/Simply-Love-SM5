@@ -1,0 +1,50 @@
+t = Def.ActorFrame {}
+
+t[#t+1] = Def.Sprite {
+	
+	Texture="BiS 7x5.png",
+	Frame0000=0,	Delay0000=0.28571428,
+	Frame0001=1,	Delay0001=0.28571428,
+	Frame0002=2,	Delay0002=0.28571428,
+	Frame0003=3,	Delay0003=0.28571428,
+	Frame0004=4,	Delay0004=0.28571428,
+	Frame0005=5,	Delay0005=0.28571428,
+	Frame0006=6,	Delay0006=0.28571432,
+	Frame0007=7,	Delay0007=0.28571428,
+	Frame0008=8,	Delay0008=0.28571428,
+	Frame0009=9,	Delay0009=0.28571428,
+	Frame0010=10,	Delay0010=0.28571428,
+	Frame0011=11,	Delay0011=0.28571428,
+	Frame0012=12,	Delay0012=0.28571428,
+	Frame0013=13,	Delay0013=0.28571432,
+	Frame0014=14,	Delay0014=0.28571428,
+	Frame0015=15,	Delay0015=0.28571428,
+	Frame0016=16,	Delay0016=0.28571428,
+	Frame0017=17,	Delay0017=0.28571428,
+	Frame0018=18,	Delay0018=0.28571428,
+	Frame0019=19,	Delay0019=0.28571428,
+	Frame0020=20,	Delay0020=0.28571432,
+	Frame0021=21,	Delay0021=0.28571428,
+	Frame0022=22,	Delay0022=0.28571428,
+	Frame0023=23,	Delay0023=0.28571428,
+	Frame0024=24,	Delay0024=0.28571428,
+	Frame0025=25,	Delay0025=0.28571428,
+	Frame0026=26,	Delay0026=0.28571428,
+	Frame0027=27,	Delay0027=0.28571432,
+	Frame0028=28,	Delay0028=0.28571428,
+	Frame0029=29,	Delay0029=0.28571428,
+	Frame0030=30,	Delay0030=0.28571428,
+	Frame0031=31,	Delay0031=0.28571428,
+	Frame0032=32,	Delay0032=0.28571428,
+	Frame0033=33,	Delay0033=0.28571428,
+	Frame0034=34,	Delay0034=0.28571432,
+	
+	OnCommand=function(self)
+		self:effectclock("bgm")
+		self:zoom(0.8)
+		self:y(-30)
+	end
+	
+}
+
+return t
