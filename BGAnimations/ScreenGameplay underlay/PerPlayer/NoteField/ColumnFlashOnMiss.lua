@@ -150,14 +150,19 @@ if mods.ColumnFlashOnMiss then
 				local spacing = mods.Spacing:gsub("%%","")/100
 				self:addx((ColumnIndex - (NumColumns/2 + 0.5))*2 * (width/NumColumns) * spacing)
 
+				if GAMESTATE:GetPlayerState(player):GetPlayerOptions("ModsLevel_Stage"):Hallway() == 1 then
+					self:skewx(0.03*(2.5-ColumnIndex)):addx(9*(2.5-ColumnIndex))
+				end
+
 				if IsReversedColumn(player, ColumnIndex) then
 					self:rotationz(180)
 					self:y(y_offset * 2 + reverseOffset + (width/NumColumns)/2)
 				end
 	        end,
 			FlashCommand=function(self, params)
+				self:finishtweening()
 				if params.tns == "Miss" or tns == "MissedHold" then
-					self:diffuse(1,0,0,0.66)
+					self:accelerate(0.16):diffuse(1,0,0,0.66)
 				elseif not FAplus and params.tns == "W5" then
 					self:diffuse(0.78, 0.52, 0.36, 0.66)
 				elseif (FAplus and params.tns == "W5") or (not FAplus and params.tns == "W4") then
@@ -171,7 +176,7 @@ if mods.ColumnFlashOnMiss then
 				end
 				
 				if params.tns == "Miss" or tns == "MissedHold" then
-					self:accelerate(0.16):diffuse(0,0,0,0)
+					self:accelerate(0.4):diffuse(0,0,0,0)
 				else
 					self:accelerate(0.33):diffuse(0,0,0,0)
 				end
