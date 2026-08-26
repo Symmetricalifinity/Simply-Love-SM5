@@ -407,6 +407,11 @@ SL_CustomPrefs.Get = function()
 			Default = "Simply Love",
 			Choices = { "Simply Love", "ITG", "DDR" }
 		},
+		AllowScreenSelectPlayMode3 = {
+			Default = true,
+			Choices =  { THEME:GetString("ThemePrefs","Yes"), THEME:GetString("ThemePrefs", "No") },
+			Values  = { true, false }
+		},
 		SongSelectBG =
 		{
 			Default = "Off",

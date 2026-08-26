@@ -42,6 +42,8 @@ if SL.Global.GameMode == "FA+" then
 	solidColors.FullComboW4 = color("#66c955")
 end
 
+local combo_color = {color("#ffffff"), {color("#ffffff"), color("#ffffff")}}
+
 -- ghetto quint support
 colors.FullComboW0 = {color("#F7C0FE"), color("#E928FF")} -- magenta combo
 solidColors.FullComboW0 = color("#E928FF") -- magenta
@@ -159,44 +161,36 @@ local combo_bmt = LoadFont("_Combo Fonts/" .. combo_font .."/" .. combo_font)..{
 					self:diffuse(Color.White):rainbowscroll(false)
 				end
 			elseif mods.ComboColors ~= "Rainbow" and mods.ComboColors ~= "RainbowScroll" then
-				self:diffuseshift():effectperiod(0.8)
+				if mods.ComboColors == "Beat" then
+					self:diffuseramp():effectclock("beatnooffset")
+				else
+					self:diffuseshift():effectperiod(0.8)
+				end
 
 				-- ghetto quint support
-				if params.FullComboW1 and quintin_tarandimo then
-					if mods.ComboColors == "Glow" then
-						self:effectcolor1(colors.FullComboW0[1]):effectcolor2(colors.FullComboW0[2])
-					elseif mods.ComboColors == "Solid" then
-						self:stopeffect():diffuse(solidColors.FullComboW0)
-					end
+				if params.FullComboW1 or params.FullComboW2 or params.FullComboW3 or params.FullComboW4 then
+					if params.FullComboW1 and quintin_tarandimo then
+						combo_color = {solidColors.FullComboW0, colors.FullComboW0}
 
-				elseif params.FullComboW1 then
-					if mods.ComboColors == "Glow" then
-						self:effectcolor1(colors.FullComboW1[1]):effectcolor2(colors.FullComboW1[2])
-					elseif mods.ComboColors == "Solid" then
-						self:stopeffect():diffuse(solidColors.FullComboW1)
-					end
+					elseif params.FullComboW1 then
+						combo_color = {solidColors.FullComboW1, colors.FullComboW1}
 
-				elseif params.FullComboW2 then
-					if mods.ComboColors == "Glow" then
-						self:effectcolor1(colors.FullComboW2[1]):effectcolor2(colors.FullComboW2[2])
-					elseif mods.ComboColors == "Solid" then
-						self:stopeffect():diffuse(solidColors.FullComboW2)
-					end
+					elseif params.FullComboW2 then
+						combo_color = {solidColors.FullComboW2, colors.FullComboW2}
 
-				elseif params.FullComboW3 then
-					if mods.ComboColors == "Glow" then
-						self:effectcolor1(colors.FullComboW3[1]):effectcolor2(colors.FullComboW3[2])
-					elseif mods.ComboColors == "Solid" then
-						self:stopeffect():diffuse(solidColors.FullComboW3)
-					end
+					elseif params.FullComboW3 then
+						combo_color = {solidColors.FullComboW3, colors.FullComboW3}
 
-				elseif params.FullComboW4 then
-					if mods.ComboColors == "Glow" then
-						self:effectcolor1(colors.FullComboW4[1]):effectcolor2(colors.FullComboW4[2])
-					elseif mods.ComboColors == "Solid" then
-						self:stopeffect():diffuse(solidColors.FullComboW4)
+					elseif params.FullComboW4 then
+						combo_color = {solidColors.FullComboW4, colors.FullComboW4}
 					end
-
+				
+					if mods.ComboColors == "Solid" then
+						self:stopeffect():diffuse(combo_color[1])
+					else
+						self:effectcolor1(combo_color[2][1]):effectcolor2(combo_color[2][2])
+					end
+					
 				elseif params.Combo then
 					self:stopeffect():diffuse( Color.White ) -- not a full combo; no effect, always just #ffffff
 
@@ -221,31 +215,26 @@ local combo_bmt = LoadFont("_Combo Fonts/" .. combo_font .."/" .. combo_font)..{
 				combo_active = true
 				self:rainbowscroll(true)
 			elseif mods.ComboColors ~= "Rainbow" and mods.ComboColors ~= "RainbowScroll" then
-				self:diffuseshift():effectperiod(0.8)
+				if mods.ComboColors == "Beat" then
+					self:diffuseramp():effectclock("beatnooffset")
+				else
+					self:diffuseshift():effectperiod(0.8)
+				end
 				if not params.Misses then
-					if worst_judgment == 1 and quintin_tarandimo then
-						if mods.ComboColors == "Glow" then
-							self:effectcolor1(colors.FullComboW0[1]):effectcolor2(colors.FullComboW0[2])
-						elseif mods.ComboColors == "Solid" then
-							self:stopeffect():diffuse(solidColors.FullComboW0)
+				if worst_judgment < 4 then
+						if worst_judgment == 1 and quintin_tarandimo then
+							combo_color = {solidColors.FullComboW0, colors.FullComboW0}
+						elseif worst_judgment == 1 then
+							combo_color = {solidColors.FullComboW1, colors.FullComboW1}
+						elseif worst_judgment == 2 then
+							combo_color = {solidColors.FullComboW2, colors.FullComboW2}
+						elseif worst_judgment == 3 then
+							combo_color = {solidColors.FullComboW3, colors.FullComboW3}
 						end
-					elseif worst_judgment == 1 then
-						if mods.ComboColors == "Glow" then
-							self:effectcolor1(colors.FullComboW1[1]):effectcolor2(colors.FullComboW1[2])
-						elseif mods.ComboColors == "Solid" then
-							self:stopeffect():diffuse(solidColors.FullComboW1)
-						end
-					elseif worst_judgment == 2 then
-						if mods.ComboColors == "Glow" then
-							self:effectcolor1(colors.FullComboW2[1]):effectcolor2(colors.FullComboW2[2])
-						elseif mods.ComboColors == "Solid" then
-							self:stopeffect():diffuse(solidColors.FullComboW2)
-						end
-					elseif worst_judgment == 3 then
-						if mods.ComboColors == "Glow" then
-							self:effectcolor1(colors.FullComboW3[1]):effectcolor2(colors.FullComboW3[2])
-						elseif mods.ComboColors == "Solid" then
-							self:stopeffect():diffuse(solidColors.FullComboW3)
+						if mods.ComboColors == "Solid" then
+							self:stopeffect():diffuse(combo_color[1])
+						else
+							self:effectcolor1(combo_color[2][1]):effectcolor2(combo_color[2][2])
 						end
 					end
 				else

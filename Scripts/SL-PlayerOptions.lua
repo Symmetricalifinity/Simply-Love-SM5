@@ -966,7 +966,7 @@ local Overrides = {
 	},
 	-------------------------------------------------------------------------
 	ComboColors = {
-		Choices = { "Glow", "Solid", "Rainbow", "RainbowScroll", "None" }
+		Choices = { "Glow", "Beat", "Solid", "Rainbow", "RainbowScroll", "None" }
 	},
 	-------------------------------------------------------------------------
 	ComboMode = {

@@ -139,7 +139,7 @@ end
 
 Branch.AllowScreenSelectPlayMode = function()
 	if ThemePrefs.Get("AllowScreenSelectPlayMode") then
-		return "ScreenSelectPlayMode"
+		return ThemePrefs.Get("AllowScreenSelectPlayMode3") and "ScreenSelectPlayMode3" or "ScreenSelectPlayMode"
 	else
 		return Branch.AllowScreenSelectPlayMode2()
 	end
@@ -155,6 +155,12 @@ Branch.AllowScreenSelectPlayMode2 = function()
 	else
 		return "ScreenProfileLoad"
 	end
+end
+
+Branch.AfterSelectPlayMode3 = function()
+	SetGameModePreferences()
+	THEME:ReloadMetrics()
+	return "ScreenProfileLoad"
 end
 
 Branch.AfterEvaluationStage = function()
