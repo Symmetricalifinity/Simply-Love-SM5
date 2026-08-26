@@ -138,8 +138,10 @@ Branch.AfterScreenSelectColor = function()
 end
 
 Branch.AllowScreenSelectPlayMode = function()
-	if ThemePrefs.Get("AllowScreenSelectPlayMode") then
-		return ThemePrefs.Get("AllowScreenSelectPlayMode3") and "ScreenSelectPlayMode3" or "ScreenSelectPlayMode"
+	if ThemePrefs.Get("AllowScreenSelectPlayMode3") and (ThemePrefs.Get("AllowScreenSelectPlayMode") or ThemePrefs.Get("AllowScreenSelectPlayMode2")) then
+		return "ScreenSelectPlayMode3"
+	elseif ThemePrefs.Get("AllowScreenSelectPlayMode") then
+		return "ScreenSelectPlayMode"
 	else
 		return Branch.AllowScreenSelectPlayMode2()
 	end
