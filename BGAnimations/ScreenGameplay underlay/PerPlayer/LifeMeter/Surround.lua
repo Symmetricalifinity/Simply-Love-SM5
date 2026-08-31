@@ -38,121 +38,6 @@ local af = Def.ActorFrame{
 			self:playcommand("ChangeSize", {CropAmount=(1-params.LifeMeter:GetLife()) })
 		end
 	end,
-	
-	-- frame
-	Def.Quad {
-		InitCommand=function(self)
-			self:visible(SL[pn].ActiveModifiers.ShowLifePercent)
-			self:zoomto(44, 18):diffuse(PlayerColor(player,true)):horizalign("left")
-			if player==PLAYER_1 then
-				self:x(_x+10)
-			else
-				self:x(_x-11):horizalign("right")
-			end
-		end,
-		HealthStateChangedMessageCommand=function(self,params)
-			if params.PlayerNumber == player then
-				if params.HealthState == 'HealthState_Hot' then
-					self:finishtweening()
-					self:zoomto(52, 18)
-					self:accelerate(1)
-					self:diffusealpha(0)
-				else
-					-- ~~man's~~ lifebar's not hot
-					self:zoomto(44, 18):finishtweening():diffusealpha(1)
-				end
-			end
-		end,
-		-- check life (LifeMeterBar)
-		LifeChangedMessageCommand=function(self,params)
-			if params.Player == player then
-				local life = params.LifeMeter:GetLife() * 100
-				if life < 100 then
-					self:finishtweening()
-				end
-				if oldlife ~= 250 or life ~= 100 then
-					self:bouncebegin(0.1):y(math.max(89,71+height-(life*(height/100))))
-				else
-					self:y(math.max(89,71+height-(life*(height/100))))
-				end
-			end
-		end,
-	},
-	
-	-- percent
-	Def.Quad {
-		InitCommand=function(self)
-			self:visible(SL[pn].ActiveModifiers.ShowLifePercent)
-			self:zoomto(42, 16):diffuse(0,0,0,1):horizalign("left")
-			if player==PLAYER_1 then
-				self:x(_x+11)
-			else
-				self:x(_x-12):horizalign("right")
-			end
-		end,
-		HealthStateChangedMessageCommand=function(self,params)
-			if params.PlayerNumber == player then
-				if params.HealthState == 'HealthState_Hot' then
-					self:finishtweening()
-					self:zoomto(50, 16)
-					self:accelerate(1)
-					self:diffusealpha(0)
-				else
-					-- ~~man's~~ lifebar's not hot
-					self:zoomto(42, 16):finishtweening():diffusealpha(1)
-				end
-			end
-		end,
-		-- check life (LifeMeterBar)
-		LifeChangedMessageCommand=function(self,params)
-			if params.Player == player then
-				local life = params.LifeMeter:GetLife() * 100
-				if life < 100 then
-					self:finishtweening()
-				end
-				if oldlife ~= 250 or life ~= 100 then
-					self:bouncebegin(0.1):y(math.max(89,71+height-(life*(height/100))))
-				else
-					self:y(math.max(89,71+height-(life*(height/100))))
-				end
-			end
-		end,
-	},
-	Def.BitmapText {
-		Font=ThemePrefs.Get("ThemeFont") .. " Normal",
-		InitCommand=function(self)
-			self:visible(SL[pn].ActiveModifiers.ShowLifePercent)
-			self:diffuse(PlayerColor(player,true)):horizalign("left")
-			if player==PLAYER_1 then
-				self:x(_x+12)
-			else
-				self:x(_x-13):horizalign("right")
-			end
-		end,
-		HealthStateChangedMessageCommand=function(self,params)
-			if params.PlayerNumber == player then
-				if params.HealthState == 'HealthState_Hot' then
-					self:accelerate(1):diffusealpha(0)
-				else
-					-- ~~man's~~ lifebar's not hot
-					self:finishtweening():diffusealpha(1)
-				end
-			end
-		end,
-		-- check life (LifeMeterBar)
-		LifeChangedMessageCommand=function(self,params)
-			if params.Player == player then
-				local life = params.LifeMeter:GetLife() * 100
-				if life < 100 then
-					self:finishtweening()
-				end
-				if oldlife ~= 250 or life ~= 100 then
-					self:bouncebegin(0.1):y(math.max(89,71+height-(life*(height/100))))
-				end
-				self:settext(("%.1f%%"):format(life))
-			end
-		end,
-	},
 }
 
 -- if double style, we want two quads flanking the left/right sides of the screen that move in unison
@@ -223,5 +108,121 @@ else
 		end
 	}
 end
+
+
+af[#af+1] = Def.Quad { -- frame
+	InitCommand=function(self)
+		self:visible(SL[pn].ActiveModifiers.ShowLifePercent)
+		self:zoomto(44, 18):diffuse(PlayerColor(player,true)):horizalign("left")
+		if player==PLAYER_1 then
+			self:x(_x+10)
+		else
+			self:x(_x-11):horizalign("right")
+		end
+	end,
+	HealthStateChangedMessageCommand=function(self,params)
+		if params.PlayerNumber == player then
+			if params.HealthState == 'HealthState_Hot' then
+				self:finishtweening()
+				self:zoomto(52, 18)
+				self:accelerate(1)
+				self:diffusealpha(0)
+			else
+				-- ~~man's~~ lifebar's not hot
+				self:zoomto(44, 18):finishtweening():diffusealpha(1)
+			end
+		end
+	end,
+	-- check life (LifeMeterBar)
+	LifeChangedMessageCommand=function(self,params)
+		if params.Player == player then
+			local life = params.LifeMeter:GetLife() * 100
+			if life < 100 then
+				self:finishtweening()
+			end
+			if oldlife ~= 250 or life ~= 100 then
+				self:bouncebegin(0.1):y(math.max(89,71+height-(life*(height/100))))
+			else
+				self:y(math.max(89,71+height-(life*(height/100))))
+			end
+		end
+	end,
+}
+
+-- percent
+af[#af+1] = Def.Quad {
+	InitCommand=function(self)
+		self:visible(SL[pn].ActiveModifiers.ShowLifePercent)
+		self:zoomto(42, 16):diffuse(0,0,0,1):horizalign("left")
+		if player==PLAYER_1 then
+			self:x(_x+11)
+		else
+			self:x(_x-12):horizalign("right")
+		end
+	end,
+	HealthStateChangedMessageCommand=function(self,params)
+		if params.PlayerNumber == player then
+			if params.HealthState == 'HealthState_Hot' then
+				self:finishtweening()
+				self:zoomto(50, 16)
+				self:accelerate(1)
+				self:diffusealpha(0)
+			else
+				-- ~~man's~~ lifebar's not hot
+				self:zoomto(42, 16):finishtweening():diffusealpha(1)
+			end
+		end
+	end,
+	-- check life (LifeMeterBar)
+	LifeChangedMessageCommand=function(self,params)
+		if params.Player == player then
+			local life = params.LifeMeter:GetLife() * 100
+			if life < 100 then
+				self:finishtweening()
+			end
+			if oldlife ~= 250 or life ~= 100 then
+				self:bouncebegin(0.1):y(math.max(89,71+height-(life*(height/100))))
+			else
+				self:y(math.max(89,71+height-(life*(height/100))))
+			end
+		end
+	end,
+}
+
+af[#af+1] = Def.BitmapText {
+	Font=ThemePrefs.Get("ThemeFont") .. " Normal",
+	InitCommand=function(self)
+		self:visible(SL[pn].ActiveModifiers.ShowLifePercent)
+		self:diffuse(PlayerColor(player,true)):horizalign("left")
+		if player==PLAYER_1 then
+			self:x(_x+12)
+		else
+			self:x(_x-13):horizalign("right")
+		end
+	end,
+	HealthStateChangedMessageCommand=function(self,params)
+		if params.PlayerNumber == player then
+			if params.HealthState == 'HealthState_Hot' then
+				self:accelerate(1):diffusealpha(0)
+			else
+				-- ~~man's~~ lifebar's not hot
+				self:finishtweening():diffusealpha(1)
+			end
+		end
+	end,
+	-- check life (LifeMeterBar)
+	LifeChangedMessageCommand=function(self,params)
+		if params.Player == player then
+			local life = params.LifeMeter:GetLife() * 100
+			if life < 100 then
+				self:finishtweening()
+			end
+			if oldlife ~= 250 or life ~= 100 then
+				self:bouncebegin(0.1):y(math.max(89,71+height-(life*(height/100))))
+			end
+			self:settext(("%.1f%%"):format(life))
+		end
+	end,
+}
 
 return af
