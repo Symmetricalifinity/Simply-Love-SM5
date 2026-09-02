@@ -15,8 +15,30 @@ JudgmentAnimationsTable = { -- t,z,j = target,zoom,judgment
 		animation = function(t,z,j) t:zoom(z*4/3):decelerate(0.2):zoom(z):sleep(0.6):accelerate(0.2):zoom(0) end
 	},
 	{
-		name = "Hold", -- this should match the custom JudgmentTween() from SL for 3.95
+		name = "Hold",
 		animation = function(t,z,j) t:zoom(z*0.8):linear(0.3):zoom(z):sleep(0.5):linear(0):zoom(0) end
+	},
+	{
+		name = "Glow",
+		animation = function(t,z,j)
+			t:glowshift():effectperiod(0.6)
+			if j == "W0" then -- W0 will always be used for Fantastic when the FA+ window is disabled
+				t:effectcolor1(color("#21cce800")):effectcolor2(color("#21cce8"))
+			elseif j == "W1" then
+				t:effectcolor1(color("#ffffff00")):effectcolor2(color("#ffffff"))
+			elseif j == "W2" then
+				t:effectcolor1(color("#e29c1800")):effectcolor2(color("#e29c18"))
+			elseif j == "W3" then
+				t:effectcolor1(color("#66c95500")):effectcolor2(color("#66c955"))
+			elseif j == "W4" then
+				t:effectcolor1(color("#b45cff00")):effectcolor2(color("#b45cff"))
+			elseif j == "W5" then
+				t:effectcolor1(color("#c9855e00")):effectcolor2(color("#c9855e"))
+			elseif j == "Miss" then
+				t:effectcolor1(color("#ff303000")):effectcolor2(color("#ff3030"))
+			end
+			t:zoom(z*16/15):decelerate(0.1):zoom(z):sleep(0.6):accelerate(0.2):zoom(0)
+		end
 	}
 }
 

@@ -162,7 +162,7 @@ return Def.ActorFrame{
 			end
 			
 			sprite:finishtweening()
-			JudgmentAnimations[mods.JudgmentAnimation](sprite, 0.75, ToEnumShortString(param.TapNoteScore))
+			JudgmentAnimations[mods.JudgmentAnimation](sprite, 0.75, ((not mods.ShowFaPlusWindow and ToEnumShortString(param.TapNoteScore) == "W1") or (mods.ShowFaPlusWindow and (IsW010Judgment(param, player) or ((not mods.SmallerWhite or mods.SplitWhites) and IsW0Judgment(param, player))))) and "W0" or ToEnumShortString(param.TapNoteScore))
 		end
 	end,
 	JudgmentMessageCommand=function(self, param)
@@ -279,7 +279,7 @@ return Def.ActorFrame{
 		end
 		
 		sprite:finishtweening()
-		JudgmentAnimations[mods.JudgmentAnimation](sprite, 0.75, tns)
+		JudgmentAnimations[mods.JudgmentAnimation](sprite, 0.75, ((not mods.ShowFaPlusWindow and tns == "W1") or (mods.ShowFaPlusWindow and (IsW010Judgment(param, player) or ((not mods.SmallerWhite or mods.SplitWhites) and IsW0Judgment(param, player))))) and "W0" or tns)
 		
 		if mods.SplitWhites and mods.ShowFaPlusWindow and tns == "W1" and not IsW010Judgment(param, player) and not IsAutoplay(player) then
 			local splitFrame = 1
@@ -288,7 +288,7 @@ return Def.ActorFrame{
 				if not param.Early then splitFrame = splitFrame + 1 end
 			end
 			spriteGhost:visible(true):setstate(splitFrame):finishtweening():diffusealpha(0.5)
-			JudgmentAnimations[mods.JudgmentAnimation](spriteGhost, 0.75, tns)
+			JudgmentAnimations[mods.JudgmentAnimation](spriteGhost, 0.75, "W1")
 		elseif tns == "W4" or tns == "W5" and mods.GhostFault then
 			self:playcommand("ResetFault")
 			spriteGhost:visible(true):setstate(frame):finishtweening():diffusealpha(0.5)

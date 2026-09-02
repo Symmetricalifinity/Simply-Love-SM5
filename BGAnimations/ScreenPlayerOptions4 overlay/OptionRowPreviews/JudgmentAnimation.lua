@@ -14,7 +14,6 @@ end
 for player in ivalues(GAMESTATE:GetHumanPlayers()) do
 	local pn = ToEnumShortString(player)
 	local prev_anim = nil
-	local mySize = 1
 	
 	t[#t+1] = LoadActor( THEME:GetPathG("", "_judgments/" .. SL[pn].ActiveModifiers.JudgmentGraphic) )..{
 			Name=(pn.."_JudgmentAnimation"),
@@ -33,7 +32,7 @@ for player in ivalues(GAMESTATE:GetHumanPlayers()) do
 				end
 			end,
 			JudgmentAnimationCommand=function(self)
-				JudgmentAnimations[SL[pn].ActiveModifiers.JudgmentAnimation](self, 1, "W1")
+				JudgmentAnimations[SL[pn].ActiveModifiers.JudgmentAnimation](self, 1, "W0")
 			end
 		}
 end
