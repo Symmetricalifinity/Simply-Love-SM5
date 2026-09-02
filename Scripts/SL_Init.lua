@@ -90,6 +90,7 @@ local PlayerDefaults = {
 				ComboMode = "FullCombo",
 				TimerMode = "Time",
 				JudgmentAnimation = "Default",
+				ComboAnimation = "Still",
 				RailBalance = "No",
 
 				NoteFieldOffsetX = 0,
