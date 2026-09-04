@@ -204,7 +204,7 @@ t[#t+1] = Def.BitmapText{
 
 	RefreshCommand=function(self)
 		local screen = SCREENMAN:GetTopScreen()
-		if ThemePrefs.Get("ThemeFont") ~= "Common" then
+		if ThemePrefs.Get("ThemeFont") == "Mega" then
 			self:visible(false)
 		else
 			-- if this screen's Metric for ShowCreditDisplay=false, then hide this BitmapText actor
