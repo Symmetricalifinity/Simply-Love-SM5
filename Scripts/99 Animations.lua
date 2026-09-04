@@ -1,26 +1,30 @@
 -- -----------------------------------------------------------------------
 -- Judgment animations (tap only)
 
-JudgmentAnimationsTable = { -- t,z,j = target,zoom,judgment
+JudgmentAnimationsTable = { -- t,j,z,a = target,judgment,zoom,alpha
 	{
 		name = "Default", -- this should match the custom JudgmentTween() from SL for 3.95
-		animation = function(t,z,j) t:zoom(z*16/15):decelerate(0.1):zoom(z):sleep(0.6):accelerate(0.2):zoom(0) end
+		animation = function(t,j,z) t:zoom(z*16/15):decelerate(0.1):zoom(z):sleep(0.6):accelerate(0.2):zoom(0) end
 	},
 	{
 		name = "Still", -- this should match the behaviour of Etterna
-		animation = function(t,z,j) t:zoom(z):sleep(0.9):linear(0):zoom(0) end
+		animation = function(t,j,z) t:zoom(z):sleep(0.9):linear(0):zoom(0) end
 	},
 	{
 		name = "ITG", -- this should match the behaviour of ITG2/ITG3
-		animation = function(t,z,j) t:zoom(z*4/3):decelerate(0.2):zoom(z):sleep(0.6):accelerate(0.2):zoom(0) end
+		animation = function(t,j,z) t:zoom(z*4/3):decelerate(0.2):zoom(z):sleep(0.6):accelerate(0.2):zoom(0) end
 	},
 	{
 		name = "Hold",
-		animation = function(t,z,j) t:zoom(z*0.8):linear(0.3):zoom(z):sleep(0.5):linear(0):zoom(0) end
+		animation = function(t,j,z) t:zoom(z*0.8):linear(0.3):zoom(z):sleep(0.5):linear(0):zoom(0) end
+	},
+	{
+		name = "Fade",
+		animation = function(t,j,z,a) t:zoom(z):diffusealpha(0):linear(0.1):diffusealpha(a):sleep(0.6):linear(0.2):diffusealpha(0):linear(0):zoom(0):diffusealpha(a) end
 	},
 	{
 		name = "Glow",
-		animation = function(t,z,j)
+		animation = function(t,j,z)
 			t:glowshift():effectperiod(0.6)
 			if j == "W0" then -- W0 will always be used for Fantastic when the FA+ window is disabled
 				t:effectcolor1(color("#21cce800")):effectcolor2(color("#21cce8"))
@@ -55,7 +59,7 @@ end
 ComboAnimationsTable = { -- t,z = target,zoom
 	{
 		name = "Still",
-		animation = function(t,z) end
+		animation = function(t) end
 	},
 	{
 		name = "Grow",
@@ -71,27 +75,27 @@ ComboAnimationsTable = { -- t,z = target,zoom
 	},
 	{
 		name = "Left",
-		animation = function(t,z) t:addx(-6):decelerate(0.1):addx(6) end
+		animation = function(t) t:addx(-6):decelerate(0.1):addx(6) end
 	},
 	{
 		name = "Down",
-		animation = function(t,z)t:addy(6):decelerate(0.1):addy(-6) end
+		animation = function(t)t:addy(6):decelerate(0.1):addy(-6) end
 	},
 	{
 		name = "Up",
-		animation = function(t,z) t:addy(-6):decelerate(0.1):addy(6) end
+		animation = function(t) t:addy(-6):decelerate(0.1):addy(6) end
 	},
 	{
 		name = "Right",
-		animation = function(t,z) t:addx(6):decelerate(0.1):addx(-6) end
+		animation = function(t) t:addx(6):decelerate(0.1):addx(-6) end
 	},
 	{
 		name = "Hop",
-		animation = function(t,z) t:decelerate(0.06):addy(-6):accelerate(0.06):addy(6) end
+		animation = function(t) t:decelerate(0.06):addy(-6):accelerate(0.06):addy(6) end
 	},
 	{
 		name = "Fade",
-		animation = function(t,z) t:diffusealpha(0):linear(0.1):diffusealpha(1) end
+		animation = function(t) t:diffusealpha(0):linear(0.1):diffusealpha(1) end
 	},
 }
 

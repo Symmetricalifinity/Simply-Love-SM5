@@ -181,8 +181,8 @@ return Def.ActorFrame{
 				sprite:rotationz(direction * offset)
 			end
 			
-			sprite:finishtweening()
-			JudgmentAnimations[mods.JudgmentAnimation](sprite, 0.75, ((not mods.ShowFaPlusWindow and ToEnumShortString(param.TapNoteScore) == "W1") or (mods.ShowFaPlusWindow and (IsW010Judgment(param, player) or ((not mods.SmallerWhite or mods.SplitWhites) and IsW0Judgment(param, player))))) and "W0" or ToEnumShortString(param.TapNoteScore))
+			sprite:finishtweening():diffusealpha(1):zoom(0.75)
+			JudgmentAnimations[mods.JudgmentAnimation](sprite, ((not mods.ShowFaPlusWindow and ToEnumShortString(param.TapNoteScore) == "W1") or (mods.ShowFaPlusWindow and (IsW010Judgment(param, player) or ((not mods.SmallerWhite or mods.SplitWhites) and IsW0Judgment(param, player))))) and "W0" or ToEnumShortString(param.TapNoteScore), 0.75, 1)
 		end
 	end,
 	JudgmentMessageCommand=function(self, param)
@@ -306,8 +306,8 @@ return Def.ActorFrame{
 			SCREENMAN:GetTopScreen():GetChild("Player"..ToEnumShortString(player)):GetChild("NoteField"):rotationz(direction * offset)
 		end
 		
-		sprite:finishtweening()
-		JudgmentAnimations[mods.JudgmentAnimation](sprite, 0.75, ((not mods.ShowFaPlusWindow and tns == "W1") or (mods.ShowFaPlusWindow and (IsW010Judgment(param, player) or ((not mods.SmallerWhite or mods.SplitWhites) and IsW0Judgment(param, player))))) and "W0" or tns)
+		sprite:finishtweening():diffusealpha(1):zoom(0.75)
+		JudgmentAnimations[mods.JudgmentAnimation](sprite, ((not mods.ShowFaPlusWindow and tns == "W1") or (mods.ShowFaPlusWindow and (IsW010Judgment(param, player) or ((not mods.SmallerWhite or mods.SplitWhites) and IsW0Judgment(param, player))))) and "W0" or tns, 0.75, 1)
 		
 		if mods.SplitWhites and mods.ShowFaPlusWindow and tns == "W1" and not IsW010Judgment(param, player) and not IsAutoplay(player) then
 			local splitFrame = 1
@@ -315,12 +315,12 @@ return Def.ActorFrame{
 				splitFrame = splitFrame * 2
 				if not param.Early then splitFrame = splitFrame + 1 end
 			end
-			spriteGhost:visible(true):setstate(splitFrame):finishtweening():diffusealpha(0.5)
-			JudgmentAnimations[mods.JudgmentAnimation](spriteGhost, 0.75, "W1")
+			spriteGhost:visible(true):setstate(splitFrame):finishtweening():diffusealpha(0.5):zoom(0.75)
+			JudgmentAnimations[mods.JudgmentAnimation](spriteGhost, "W1", 0.75, 0.5)
 		elseif tns == "W4" or tns == "W5" and mods.GhostFault then
 			self:playcommand("ResetFault")
-			spriteGhost:visible(true):setstate(frame):finishtweening():diffusealpha(0.5)
-			JudgmentAnimations[mods.JudgmentAnimation](spriteGhost, 0.75, tns)
+			spriteGhost:visible(true):setstate(frame):finishtweening():diffusealpha(0.5):zoom(0.75)
+			JudgmentAnimations[mods.JudgmentAnimation](spriteGhost, tns, 0.75, 0.5)
 		else
 			spriteGhost:visible(false):finishtweening()
 		end

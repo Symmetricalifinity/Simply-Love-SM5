@@ -31,7 +31,7 @@ local af = Def.ActorFrame{
 		end,
 		SetCommand=function(self, params)
 			self:settext(params.Text):diffuse(params.Color)
-			DiffuseEmojis()
+			DiffuseEmojis(self)
 		end,
 	},
 	Def.BitmapText {

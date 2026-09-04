@@ -48,7 +48,6 @@ local af =  Def.ActorFrame{
 			elseif params.Course then
 				self:settext(params.Course:GetDisplayFullTitle() or ""):diffuse(params.Color):x(WideScale(32,71)):maxwidth(WideScale(270,350))
 			end
-			DiffuseEmojis(self)
 		end,
 	},
 	Def.BitmapText {
@@ -59,7 +58,8 @@ local af =  Def.ActorFrame{
 		SetCommand=function(self, params)
 			if params.Song then
 				self:settext(params.Song:GetDisplaySubTitle() or ""):visible(self:GetText() ~= "")
-				DiffuseEmojis(self)
+			else
+				self:visible(false)
 			end
 		end,
 	}
