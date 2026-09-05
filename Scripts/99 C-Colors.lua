@@ -1,5 +1,5 @@
 -- -----------------------------------------------------------------------
--- Difficulty colors, in the order 
+-- Difficulty colors, in the order of Beginner, Easy, Medium, Hard, Expert, Edit
 
 SLCustom.DiffColors = SLCustom.InitTable({
 	{
