@@ -24,23 +24,6 @@ local af = Def.ActorFrame{
 			end
 		end
 	},
-	Def.BitmapText {
-		Font=ThemePrefs.Get("ThemeFont") .. " Normal",
-		InitCommand=function(self)
-			self:halign(0):xy(41,0):maxwidth(WideScale(210,310))
-		end,
-		SetCommand=function(self, params)
-			self:settext(params.Text):diffuse(params.Color)
-			DiffuseEmojis(self)
-		end,
-	},
-	Def.BitmapText {
-		Font=ThemePrefs.Get("ThemeFont") .. " Normal",
-		Name="SectionCount",
-		InitCommand=function(self)
-			self:halign(1):xy(_screen.w/2 - WideScale(37, 43),0):zoom(0.75)
-		end
-	},
 	Def.ActorFrame{
 		Name="FolderStack",
 		InitCommand=function(self)
@@ -109,6 +92,24 @@ if ThemePrefs.Get("SongSelectBG") ~= "Off" then
 		end,
 	}
 end
+
+af[#af+1] = Def.BitmapText {
+	Font=ThemePrefs.Get("ThemeFont") .. " Normal",
+	InitCommand=function(self)
+		self:halign(0):xy(41,0):maxwidth(WideScale(210,310))
+	end,
+	SetCommand=function(self, params)
+		self:settext(params.Text):diffuse(params.Color)
+		DiffuseEmojis(self)
+	end,
+}
+af[#af+1] = Def.BitmapText {
+	Font=ThemePrefs.Get("ThemeFont") .. " Normal",
+	Name="SectionCount",
+	InitCommand=function(self)
+		self:halign(1):xy(_screen.w/2 - WideScale(37, 43),0):zoom(0.75)
+	end
+}
 
 return af
 

@@ -35,34 +35,84 @@ local af =  Def.ActorFrame{
 				end
 			end
 		end,
-    },
-	Def.BitmapText {
-		Font=ThemePrefs.Get("ThemeFont") .. " Normal",
+    }
+}
+
+if ThemePrefs.Get("SongSelectBG") ~= "Off" then
+	af[#af+1] = Def.Sprite{
 		InitCommand=function(self)
-			self:halign(0):xy(WideScale(47, 78),0):zoom(0.85):maxwidth(WideScale(245,350)):diffuse(ThemePrefs.Get("RainbowMode") and color("#0a141b") or Color.White)
+			self:horizalign(right):addx(item_width):scaletoclipped(item_width-50, _screen.h/num_visible_items-2):visible(true)
+			self:diffusealpha(0.25):fadeleft(1):SetDecodeMovie(false)
 		end,
 		SetCommand=function(self, params)
-			if params.Song then
-				self:settext(params.Song:GetDisplayMainTitle() or ""):y((params.Song:GetDisplaySubTitle() or "")~="" and -6 or 0)
-				if params.Song:GetMainTitle()=="DVNO" then self:diffuse(1,0.8,0,1) end
-			elseif params.Course then
-				self:settext(params.Course:GetDisplayFullTitle() or ""):diffuse(params.Color):x(WideScale(32,71)):maxwidth(WideScale(270,350))
-			end
-		end,
-	},
-	Def.BitmapText {
-		Font=ThemePrefs.Get("ThemeFont") .. " Normal",
-		InitCommand=function(self)
-			self:halign(0):xy(WideScale(47, 78),6):zoom(0.7):maxwidth(WideScale(245,350)):diffuse(ThemePrefs.Get("RainbowMode") and color("#0a141b") or Color.White)
-		end,
-		SetCommand=function(self, params)
-			if params.Song then
-				self:settext(params.Song:GetDisplaySubTitle() or ""):visible(self:GetText() ~= "")
+			local Song = params.Song
+			local Course = params.Course
+			local Path = nil
+			
+			if Song then
+				if Song:GetBackgroundPath() ~= nil then
+					Path = Song:GetBackgroundPath()
+				end
+				if Song:GetBannerPath() ~= nil then
+					if Path == nil or ThemePrefs.Get("SongSelectBG") == "Banner" then
+						Path = Song:GetBannerPath()
+					end
+				end
+					
+				if Path ~= nil then
+					self:Load( Path ):visible(true)
+				else
+					self:visible(false)
+				end
+			elseif Course then
+				if Course:GetBackgroundPath() ~= nil then
+					Path = Course:GetBackgroundPath()
+				end
+				if Course:GetBannerPath() ~= nil then
+					if Path == nil or ThemePrefs.Get("SongSelectBG") == "Banner" then
+						Path = Course:GetBannerPath()
+					end
+				end
+					
+				if Path ~= nil then
+					self:Load( Path ):visible(true)
+				else
+					self:visible(false)
+				end
 			else
 				self:visible(false)
 			end
-		end,
+		end
 	}
+end
+
+af[#af+1] = Def.BitmapText {
+	Font=ThemePrefs.Get("ThemeFont") .. " Normal",
+	InitCommand=function(self)
+		self:halign(0):xy(WideScale(47, 78),0):zoom(0.85):maxwidth(WideScale(245,350)):diffuse(ThemePrefs.Get("RainbowMode") and color("#0a141b") or Color.White)
+	end,
+	SetCommand=function(self, params)
+		if params.Song then
+			self:settext(params.Song:GetDisplayMainTitle() or ""):y((params.Song:GetDisplaySubTitle() or "")~="" and -6 or 0)
+			if params.Song:GetMainTitle()=="DVNO" then self:diffuse(1,0.8,0,1) end
+		elseif params.Course then
+			self:settext(params.Course:GetDisplayFullTitle() or ""):diffuse(params.Color):x(WideScale(32,71)):maxwidth(WideScale(270,350))
+		end
+	end,
+}
+af[#af+1] = Def.BitmapText {
+	Font=ThemePrefs.Get("ThemeFont") .. " Normal",
+	InitCommand=function(self)
+		self:halign(0):xy(WideScale(47, 78),6):zoom(0.7):maxwidth(WideScale(245,350)):diffuse(ThemePrefs.Get("RainbowMode") and color("#0a141b") or Color.White)
+	end,
+	SetCommand=function(self, params)
+		if params.Song then
+			self:settext(params.Song:GetDisplaySubTitle() or ""):visible(self:GetText() ~= "")
+			if params.Song:GetMainTitle()=="DVNO" then self:diffuse(1,0.8,0,1) end
+		else
+			self:visible(false)
+		end
+	end,
 }
 
 
