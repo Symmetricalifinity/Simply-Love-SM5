@@ -105,8 +105,10 @@ af[#af+1] = Def.BitmapText {
 		self:halign(0):xy(41,0):maxwidth(WideScale(210,310))
 	end,
 	SetCommand=function(self, params)
-		self:settext(params.Text):diffuse(params.Color)
-		DiffuseEmojis(self)
+		if not (params.Song or params.Course) then
+			self:settext(params.Text):diffuse(params.Color)
+			DiffuseEmojis(self)
+		end
 	end,
 }
 af[#af+1] = Def.BitmapText {
